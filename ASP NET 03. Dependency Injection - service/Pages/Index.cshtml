@@ -1,0 +1,24 @@
+﻿@page
+@using ASP_NET_03._Dependency_Injection.Models
+@model IndexModel
+@{
+    ViewData["Title"] = "Products";
+    var products = ViewData["Products"] as IEnumerable<Product>;
+}
+
+<div class="text-center">
+    <h1 class="display-4">Products: </h1>
+    @if (products.Any())
+    {
+        <div>
+            <ol>
+                @foreach (var product in products)
+                {
+                    <li>
+                        <strong>@product.Name</strong> - <em>@product.Description</em>
+                    </li>
+                }
+            </ol>
+        </div>
+    }
+</div>
