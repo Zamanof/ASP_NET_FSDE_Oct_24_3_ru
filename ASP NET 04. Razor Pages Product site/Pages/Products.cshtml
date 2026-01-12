@@ -1,18 +1,53 @@
-﻿@page
+﻿@page 
 @model ASP_NET_04._Razor_Pages_Product_site.Pages.ProductsModel
 
+<div class="container mt-4">
 
-@if (Model.Products.Any())
-{
-    <h3>Products</h3>
-    foreach (var item in Model.Products.ToList())
+    <h3 class="mb-4 text-center">Products</h3>
+
+    @if (Model.Products.Any())
     {
-        <p>
-            <a href="#">@item.Name</a>
-        </p>
+        <div class="row g-4">
+            @foreach (var item in Model.Products)
+            {
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body d-flex flex-column">
+
+                            <h5 class="card-title">@item.Name</h5>
+
+                            <p class="card-text text-muted">
+                                @item.Description
+                            </p>
+
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-primary">
+                                    @Math.Round(@item.Price,2) ₼
+                                </span>
+
+                                @* <a href="/product?id=@item.Id"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Details
+                                </a> *@
+
+                                <a asp-page="Product" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-outline-primary">
+                                    Details
+                                </a>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     }
-}
-else
-{
-    <h3>No Data</h3>
-}
+    else
+    {
+        <div class="alert alert-warning text-center">
+            No Data
+        </div>
+    }
+
+</div>
