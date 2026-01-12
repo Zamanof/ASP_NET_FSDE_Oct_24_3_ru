@@ -1,0 +1,48 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Add Product";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Add Product</h3>
+
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" name="Name" class="form-control" placeholder="Product name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <input type="text" name="Description" class="form-control" placeholder="Description">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Count</label>
+                            <input type="number" name="Count" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Price</label>
+                            <input type="text" name="Price" class="form-control">
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                Add Product
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
