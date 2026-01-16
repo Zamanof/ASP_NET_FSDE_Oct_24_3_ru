@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Product>
+
+<h1>Products</h1>
+<p>
+    <a asp-action="Create">Create new</a>
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(mod => mod.Name)</th>
+            <th>@Html.DisplayNameFor(mod => mod.Price)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var prod in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modItem => prod.Name)</td>
+                <td>@Html.DisplayFor(modItem => prod.Price)</td>
+                <td>
+                    @Html.ActionLink("Details page", "Details", new { id = prod.Id })
+                    @* <a asp-action="Details" asp-route-id="@prod.Id">Details</a> *@
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

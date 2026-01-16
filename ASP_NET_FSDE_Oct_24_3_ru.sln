@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156
+# Visual Studio Version 18
+VisualStudioVersion = 18.1.11312.151
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 01. Razor page example", "ASP NET 01. Razor page example\ASP NET 01. Razor page example.csproj", "{79EDED6E-66D6-43CB-8713-81AA589DBE5A}"
 EndProject
@@ -30,6 +30,14 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 04. Razor pages", "ASP NET 04. Razor pages\ASP NET 04. Razor pages.csproj", "{A2685327-686D-4A17-A9A1-948A838E1F55}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 04. Razor Pages Product site", "ASP NET 04. Razor Pages Product site\ASP NET 04. Razor Pages Product site.csproj", "{FB0ED7EA-6BEF-44FE-AB7B-3F39EE2D7827}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP NET 05", "ASP NET 05", "{A8D647CB-80E4-4CF8-A571-A0CE990CBED7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 05. MVC Product site", "ASP NET 05. MVC Product site\ASP NET 05. MVC Product site.csproj", "{37EB8234-664C-413C-9546-A345BD7B1F87}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 05. MVC Product site - Scaffold", "ASP NET 05. MVC Product site - Scaffold\ASP NET 05. MVC Product site - Scaffold.csproj", "{A69D2A29-39E3-40EE-8C32-E9F0A5FDE01F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 05. ASP Filters", "ASP NET 05. ASP Filters\ASP NET 05. ASP Filters.csproj", "{8E2A3DF5-E6F9-4093-AD84-FF26C469F197}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,6 +85,18 @@ Global
 		{FB0ED7EA-6BEF-44FE-AB7B-3F39EE2D7827}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB0ED7EA-6BEF-44FE-AB7B-3F39EE2D7827}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB0ED7EA-6BEF-44FE-AB7B-3F39EE2D7827}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37EB8234-664C-413C-9546-A345BD7B1F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37EB8234-664C-413C-9546-A345BD7B1F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37EB8234-664C-413C-9546-A345BD7B1F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37EB8234-664C-413C-9546-A345BD7B1F87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A69D2A29-39E3-40EE-8C32-E9F0A5FDE01F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A69D2A29-39E3-40EE-8C32-E9F0A5FDE01F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A69D2A29-39E3-40EE-8C32-E9F0A5FDE01F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A69D2A29-39E3-40EE-8C32-E9F0A5FDE01F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E2A3DF5-E6F9-4093-AD84-FF26C469F197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E2A3DF5-E6F9-4093-AD84-FF26C469F197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E2A3DF5-E6F9-4093-AD84-FF26C469F197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E2A3DF5-E6F9-4093-AD84-FF26C469F197}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,6 +112,9 @@ Global
 		{2A660B02-E028-452A-B8C1-FA6E00C80B2A} = {14C8E696-5F7B-4BBA-9EFD-923A7D9A5B76}
 		{A2685327-686D-4A17-A9A1-948A838E1F55} = {22F1140A-241B-4DB4-9342-C192C9BBB0F2}
 		{FB0ED7EA-6BEF-44FE-AB7B-3F39EE2D7827} = {22F1140A-241B-4DB4-9342-C192C9BBB0F2}
+		{37EB8234-664C-413C-9546-A345BD7B1F87} = {A8D647CB-80E4-4CF8-A571-A0CE990CBED7}
+		{A69D2A29-39E3-40EE-8C32-E9F0A5FDE01F} = {A8D647CB-80E4-4CF8-A571-A0CE990CBED7}
+		{8E2A3DF5-E6F9-4093-AD84-FF26C469F197} = {A8D647CB-80E4-4CF8-A571-A0CE990CBED7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6299646B-0CE0-4B3A-9D03-BC7850C5C569}

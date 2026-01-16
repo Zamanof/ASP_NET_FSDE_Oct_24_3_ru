@@ -1,0 +1,18 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <form method="get" asp-action="Welcome">
+        <p>
+            <input asp-for="Name" />
+        </p>
+        <p>
+            <input type="password" asp-for="Password" />
+        </p>
+        <p>
+            <input type="submit" value="Send"/>
+        </p>
+    </form>
+</div>

@@ -1,0 +1,21 @@
+﻿@model Product
+
+<h1>Create</h1>
+<hr />
+<form method="post" action="Create">
+    <p>
+        <label asp-for="Name">Name</label>
+    </p>
+    <p>
+        <input type="text" asp-for="Name"/>
+    </p>
+    <p>
+        <label asp-for="Price">Price</label>
+    </p>
+    <p>
+        <input type="text" asp-for="Price" />
+    </p>
+    <p>
+        <input type="submit" value="Create"/>
+    </p>
+</form>
