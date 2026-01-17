@@ -1,12 +1,7 @@
-using ASP_NET_05._ASP_Filters.Filters;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews(
-    o=>
-    o.Filters.Add(typeof(GlobalExceptionHandler))
-    );
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

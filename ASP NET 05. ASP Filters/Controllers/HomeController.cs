@@ -6,6 +6,7 @@ using System.Diagnostics;
 namespace ASP_NET_05._ASP_Filters.Controllers;
 
 //[TypeFilter(typeof(MyAuthorizationFilter))]
+//[TypeFilter(typeof(ApiKeyQueryFilter))]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -17,6 +18,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        //int number = 0;
+        //var result = 198 / number;
         return View();
     }
 
@@ -26,8 +29,10 @@ public class HomeController : Controller
         return View();
     }
 
+    [LastEnterDate]
     public IActionResult Privacy()
     {
+        throw new KeyNotFoundException();
         return View();
     }
 
