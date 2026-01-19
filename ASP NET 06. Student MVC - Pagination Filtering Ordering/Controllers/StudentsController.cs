@@ -65,6 +65,7 @@ public class StudentsController : Controller
             .ToListAsync();
 
         var view = new PginationViewModel<Student>(data, page, pageSize, count);
+
         return View(view);
     }
 
