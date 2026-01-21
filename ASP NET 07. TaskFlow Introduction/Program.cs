@@ -1,3 +1,8 @@
+using ASP_NET_07._TaskFlow_Introduction.Data;
+using ASP_NET_07._TaskFlow_Introduction.Services;
+using ASP_NET_07._TaskFlow_Introduction.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,11 +11,25 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddSwaggerGen();
+
+var connectionString = builder
+                        .Configuration
+                        .GetConnectionString("DefaultConnectionString");
+builder.Services.AddDbContext<TaskFlowDbContext>(
+    options => options.UseSqlServer(connectionString)
+    );
+
+builder.Services.AddScoped<ITaskItemService, TaskItemService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseSwagger();
+    app.UseSwaggerUI();
     app.MapOpenApi();
 }
 

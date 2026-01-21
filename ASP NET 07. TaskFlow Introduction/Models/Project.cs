@@ -1,4 +1,6 @@
-﻿namespace ASP_NET_07._TaskFlow_Introduction.Models;
+﻿using System.Text.Json.Serialization;
+
+namespace ASP_NET_07._TaskFlow_Introduction.Models;
 
 public class Project
 {
@@ -8,5 +10,7 @@ public class Project
     public DateTimeOffset CreatedAt { get; set; }
     public DateTimeOffset? UpdatedAt { get; set; }
 
-    public IEnumerable<TaskItem> Tasks { get; set; } = new List<TaskItem>();
+    [JsonIgnore]
+    public IEnumerable<TaskItem> Tasks { get; set; } 
+        = new List<TaskItem>();
 }
