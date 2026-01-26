@@ -1,6 +1,0 @@
-@ASP_NET_09._TaskFlow_DTOs_HostAddress = http://localhost:5237
-
-GET {{ASP_NET_09._TaskFlow_DTOs_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
