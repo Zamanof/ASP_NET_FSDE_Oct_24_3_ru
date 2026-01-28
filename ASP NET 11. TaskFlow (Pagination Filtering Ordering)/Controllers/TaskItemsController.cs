@@ -1,9 +1,9 @@
-﻿using ASP_NET_10._TaskFlow_Swagger_Documentation.Common;
-using ASP_NET_10._TaskFlow_Swagger_Documentation.DTOs.TaskItem_DTOs;
-using ASP_NET_10._TaskFlow_Swagger_Documentation.Services.Interfaces;
+﻿using ASP_NET_11._TaskFlow__Pagination_Filtering_Ordering_.Common;
+using ASP_NET_11._TaskFlow__Pagination_Filtering_Ordering_.DTOs.TaskItem_DTOs;
+using ASP_NET_11._TaskFlow__Pagination_Filtering_Ordering_.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ASP_NET_10._TaskFlow_Swagger_Documentation.Controllers
+namespace ASP_NET_11._TaskFlow__Pagination_Filtering_Ordering_.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -21,7 +21,7 @@ namespace ASP_NET_10._TaskFlow_Swagger_Documentation.Controllers
         /// </summary>
         /// <returns>List of all task items in the system</returns>
         /// <response code="200">Successfully retrieved the list of task items</response>
-        [HttpGet]
+        [HttpGet("all")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<ApiResponse<IEnumerable<TaskItemResponseDto>>>> GetAll()
         {
@@ -30,6 +30,18 @@ namespace ASP_NET_10._TaskFlow_Swagger_Documentation.Controllers
             return Ok(
                 ApiResponse<IEnumerable<TaskItemResponseDto>>
                     .SuccessResponse(taskItems, "Task items retrieved successfully")
+            );
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<ApiResponse<PagedResult<IEnumerable<TaskItemResponseDto>>>>> GetPaged([FromQuery]TaskItemQueryParams queryParams)
+        {
+            var result = await _taskItemService.GetPagedAsync(queryParams);
+
+            return Ok(
+                ApiResponse<PagedResult<TaskItemResponseDto>>
+                    .SuccessResponse(result, "Task items retrieved successfully")
             );
         }
 
