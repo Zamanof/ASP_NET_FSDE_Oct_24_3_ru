@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35825.156 d17.13
+VisualStudioVersion = 17.13.35825.156
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 01. Razor page example", "ASP NET 01. Razor page example\ASP NET 01. Razor page example.csproj", "{79EDED6E-66D6-43CB-8713-81AA589DBE5A}"
 EndProject
@@ -60,6 +60,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP NET 11", "ASP NET 11", "{38981EC7-A1F8-47A2-87C9-BAF2AC456EC2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 11. TaskFlow (Pagination Filtering Ordering)", "ASP NET 11. TaskFlow (Pagination Filtering Ordering)\ASP NET 11. TaskFlow (Pagination Filtering Ordering).csproj", "{FC811AC8-19BC-4BFE-A97D-319582EC82E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP NET 12", "ASP NET 12", "{CCFEFB8D-EDCA-41C4-B12B-8A81802C586C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP NET 12. TaskFlow Validation Global exception handler", "ASP NET 12. TaskFlow Validation Global exception handler\ASP NET 12. TaskFlow Validation Global exception handler.csproj", "{46822680-8D83-4B1C-908E-DB196C47962F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +151,10 @@ Global
 		{FC811AC8-19BC-4BFE-A97D-319582EC82E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC811AC8-19BC-4BFE-A97D-319582EC82E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC811AC8-19BC-4BFE-A97D-319582EC82E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46822680-8D83-4B1C-908E-DB196C47962F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46822680-8D83-4B1C-908E-DB196C47962F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46822680-8D83-4B1C-908E-DB196C47962F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46822680-8D83-4B1C-908E-DB196C47962F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -172,6 +180,7 @@ Global
 		{296633F9-9495-431F-9C34-E28132EB745D} = {0BCB63C4-6FEF-409D-B378-34349974BAFF}
 		{6460F827-917F-434A-90F4-139FB22F0DFD} = {0BCB63C4-6FEF-409D-B378-34349974BAFF}
 		{FC811AC8-19BC-4BFE-A97D-319582EC82E6} = {38981EC7-A1F8-47A2-87C9-BAF2AC456EC2}
+		{46822680-8D83-4B1C-908E-DB196C47962F} = {CCFEFB8D-EDCA-41C4-B12B-8A81802C586C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6299646B-0CE0-4B3A-9D03-BC7850C5C569}
