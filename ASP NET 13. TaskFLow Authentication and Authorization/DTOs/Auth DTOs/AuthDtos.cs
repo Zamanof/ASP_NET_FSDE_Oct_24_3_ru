@@ -50,4 +50,7 @@ public class AuthResponseDto
     /// </summary>
     /// <example>john@doe.com</example>
     public string Email { get; set; } = string.Empty;
+    public string AccessToken { get; set; } = string.Empty;
+    public DateTime ExpiredAt { get; set; }
+    public IEnumerable<string> Roles { get; set; } = new List<string>();
 }

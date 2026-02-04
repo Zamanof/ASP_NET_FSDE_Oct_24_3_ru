@@ -8,6 +8,7 @@ namespace ASP_NET_13._TaskFLow_Authentication_and_Authorization.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class ProjectsController : ControllerBase
 {
     private readonly IProjectService _projectService;

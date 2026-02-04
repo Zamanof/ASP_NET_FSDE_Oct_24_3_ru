@@ -2,16 +2,22 @@
 using ASP_NET_13._TaskFLow_Authentication_and_Authorization.Models;
 using ASP_NET_13._TaskFLow_Authentication_and_Authorization.Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace ASP_NET_13._TaskFLow_Authentication_and_Authorization.Services;
 
 public class AuthService : IAuthService
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IConfiguration _configuration;
 
-    public AuthService(UserManager<ApplicationUser> userManager)
+    public AuthService(UserManager<ApplicationUser> userManager, IConfiguration configuration)
     {
         _userManager = userManager;
+        _configuration = configuration;
     }
 
     public async Task<AuthResponseDto> LoginAsync(LoginRequest loginRequest)
@@ -29,12 +35,10 @@ public class AuthService : IAuthService
         {
             throw new UnauthorizedAccessException("Invalid name or password");
         }
-        return new AuthResponseDto
-        {
-            Email = user.Email!
-        };
+        return await GenerateTokenAsync(user);
 
     }
+
 
     public async Task<AuthResponseDto> RegisterAsync(RegisterRequest registerRequest)
     {
@@ -55,6 +59,8 @@ public class AuthService : IAuthService
             UpdatedAt = null
         };
 
+        //await _userManager.AddToRoleAsync(user, "U")
+
         var result = await _userManager.CreateAsync(user, registerRequest.Password);
 
         if (!result.Succeeded)
@@ -62,9 +68,50 @@ public class AuthService : IAuthService
             var errors = string.Join(",", result.Errors.Select(e => e.Description));
             throw new InvalidOperationException($"User creation failed: {errors}");
         }
+        return await GenerateTokenAsync(user);
+    }
+    private async Task<AuthResponseDto> GenerateTokenAsync(ApplicationUser user)
+    {
+        var jwtSettings = _configuration.GetSection("JWTSettings");
+        var secretKey = jwtSettings["SecretKey"];
+        var issuer = jwtSettings["Issuer"];
+        var audience = jwtSettings["Audience"];
+        var expirationInMinutes = int.Parse(jwtSettings["ExpirationInMinutes"]!);
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
+
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var roles = await _userManager.GetRolesAsync(user);
+
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Id),
+            new Claim(ClaimTypes.Name , user.UserName!),
+            new Claim(ClaimTypes.Email , user.Email!),
+            new Claim(JwtRegisteredClaimNames.Jti , Guid.NewGuid().ToString())
+        };
+
+        foreach (var role in roles)
+        {
+            claims.Add(new Claim(ClaimTypes.Role, role));
+        }
+
+        var token = new JwtSecurityToken(
+            issuer: issuer,
+            audience: audience,
+            claims: claims,
+            expires: DateTime.UtcNow.AddMinutes(expirationInMinutes),
+            signingCredentials: credentials
+            );
+
+        var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
         return new AuthResponseDto
         {
-            Email = user.Email
+            Email = user.Email!,
+            AccessToken = tokenString,
+            ExpiredAt = DateTime.UtcNow.AddMinutes(expirationInMinutes),
+            Roles = roles
         };
     }
 }
