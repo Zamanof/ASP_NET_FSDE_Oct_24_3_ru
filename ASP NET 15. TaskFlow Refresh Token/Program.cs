@@ -135,6 +135,22 @@ builder.Services.AddAuthorization(
     }
     );
 
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddDefaultPolicy(
+            policy=>
+            {
+                policy.WithOrigins(
+                    "http://localhost:3000", 
+                    "http://127.0.0.1:3000")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+            }
+            );
+    }
+    );
 
 builder.Services.AddScoped<ITaskItemService, TaskItemService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
@@ -166,6 +182,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 app.UseMiddleware<GlobalExceptionMiddleware>();
+
+app.UseCors();
 
 app.UseAuthentication();
 
