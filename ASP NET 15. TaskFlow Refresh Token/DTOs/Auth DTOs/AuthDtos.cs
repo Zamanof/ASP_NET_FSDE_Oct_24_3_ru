@@ -51,9 +51,9 @@ public class AuthResponseDto
     /// <example>john@doe.com</example>
     public string Email { get; set; } = string.Empty;
     public string AccessToken { get; set; } = string.Empty;
-    public DateTime ExpiredAt { get; set; }
+    public DateTimeOffset ExpiredAt { get; set; }
     public string RefreshToken { get; set; } = string.Empty;
-    public DateTime RefreshTokenExpiredAt { get; set; }
+    public DateTimeOffset RefreshTokenExpiredAt { get; set; }
     public IEnumerable<string> Roles { get; set; } = new List<string>();
 }
 

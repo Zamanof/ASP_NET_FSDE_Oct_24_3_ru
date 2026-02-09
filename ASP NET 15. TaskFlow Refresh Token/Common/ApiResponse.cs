@@ -19,6 +19,15 @@ public class ApiResponse<T>
         };
     }
 
+    public static ApiResponse<T> SuccessResponse(string message = "Operation executed successfully")
+    {
+        return new ApiResponse<T>
+        {
+            Message = message,
+            Success = true
+        };
+    }
+
     public static ApiResponse<T> ErrorResponse(
                                      string message,
                                      T? data = default)
