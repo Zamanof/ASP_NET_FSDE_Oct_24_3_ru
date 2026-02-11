@@ -26,7 +26,7 @@ interface AuthContextValue {
     lastName: string;
     email: string;
     password: string;
-    confirmedPassword: string;
+    confirmPassword: string;
   }) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
 }
@@ -55,10 +55,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   const applyAuth = useCallback((data: AuthResponse) => {
-    setAuthTokens(data.token, data.refreshToken);
+    // AuthResponse приходит с полем accessToken, а не token
+    setAuthTokens(data.accessToken, data.refreshToken);
     setUser({ email: data.email, roles: [...(data.roles ?? [])] });
     saveStored({
-      token: data.token,
+      token: data.accessToken,
       refreshToken: data.refreshToken,
       email: data.email,
       roles: [...(data.roles ?? [])],
@@ -108,7 +109,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       lastName: string;
       email: string;
       password: string;
-      confirmedPassword: string;
+      confirmPassword: string;
     }) => {
       const result = await authApi.register(payload);
       if (result.success && result.data) {

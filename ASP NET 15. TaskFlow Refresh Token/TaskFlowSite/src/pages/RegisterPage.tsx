@@ -7,7 +7,7 @@ export default function RegisterPage() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmedPassword, setconfirmedPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
@@ -16,12 +16,12 @@ export default function RegisterPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    if (password !== confirmedPassword) {
+    if (password !== confirmPassword) {
       setError('Passwords do not match');
       return;
     }
     setLoading(true);
-    const result = await register({ firstName, lastName, email, password, confirmedPassword });
+    const result = await register({ firstName, lastName, email, password, confirmPassword });
     setLoading(false);
     if (result.success) navigate('/', { replace: true });
     else setError(result.error ?? 'Registration failed');
@@ -84,8 +84,8 @@ export default function RegisterPage() {
             <input
               type="password"
               className="w-full px-3 py-2 border border-[#ebecf0] rounded bg-white text-[#172b4d] focus:outline-none focus:border-[#0052cc] focus:ring-2 focus:ring-[#deebff]"
-              value={confirmedPassword}
-              onChange={(e) => setconfirmedPassword(e.target.value)}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
               autoComplete="new-password"
             />

@@ -6,7 +6,7 @@ export interface ApiResponse<T> {
 }
 
 export interface AuthResponse {
-  token: string;
+  accessToken: string;
   expiresAt: string;
   refreshToken: string;
   refreshTokenExpiresAt: string;
@@ -23,12 +23,15 @@ export interface Project {
   tasksCount: number;
 }
 
+export type TaskStatus = 'ToDo' | 'InProgress' | 'Done';
+export type TaskPriority = 'Low' | 'Medium' | 'High';
+
 export interface TaskItem {
   id: number;
   title: string;
   description?: string;
-  status: string;
-  priority: string;
+  status: TaskStatus;
+  priority: TaskPriority;
   projectId: number;
   projectName: string;
   createdAt: string;

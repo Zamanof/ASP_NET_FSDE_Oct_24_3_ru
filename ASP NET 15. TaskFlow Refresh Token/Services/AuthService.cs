@@ -111,12 +111,12 @@ public class AuthService : IAuthService
         return newToken;
 
     }
-    public async Task RevokeRefreshTokenAsync(string refreshToken)
+    public async Task RevokeRefreshTokenAsync(RefreshTokenRequest refreshTokenRequest)
     {
         string? jti;
         try
         {
-            (_, jti) = ValidateRefreshJwtAndGetJti(refreshToken, validateLifeTime: false);
+            (_, jti) = ValidateRefreshJwtAndGetJti(refreshTokenRequest.RefreshToken, validateLifeTime: false);
         }
         catch 
         {

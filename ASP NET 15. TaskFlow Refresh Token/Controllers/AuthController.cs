@@ -47,9 +47,9 @@ public class AuthController : ControllerBase
 
     [HttpPost("revoke")]
     public async Task<ActionResult>
-        Revoke([FromBody] string refreshToken)
+        Revoke([FromBody] RefreshTokenRequest refreshTokenRequest)
     {
-        await _authService.RevokeRefreshTokenAsync(refreshToken);
+        await _authService.RevokeRefreshTokenAsync(refreshTokenRequest);
         return Ok(
              ApiResponse<AuthResponseDto>
                  .SuccessResponse("Token revoked successfully")

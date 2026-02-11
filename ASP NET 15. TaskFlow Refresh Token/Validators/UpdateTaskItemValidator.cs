@@ -15,12 +15,10 @@ public class UpdateTaskItemValidator : AbstractValidator<TaskItemUpdateRequest>
 
 
         RuleFor(x => x.Priority)
-            .NotEmpty().WithMessage("Priority is required")
             .Must(p => new[] { TaskPriority.Low, TaskPriority.Medium, TaskPriority.High }.Contains(p))
             .WithMessage("Priority must be one of: 0(Low), 1(Medium), 2(High)");
 
-        RuleFor(x => x.Status)
-            .NotEmpty().WithMessage("Status is required")
+        RuleFor(x => x.Status)            
             .Must(s => new[] { TaskStatus.ToDo, TaskStatus.InProgress, TaskStatus.Done }.Contains(s))
             .WithMessage("Priority must be one of: 0(Low), 1(Medium), 2(High)");
     }

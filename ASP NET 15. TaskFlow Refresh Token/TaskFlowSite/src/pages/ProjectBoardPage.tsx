@@ -15,12 +15,35 @@ import { getProject } from '../api/projects';
 import { getTasksByProject, createTask, updateTask, deleteTask } from '../api/tasks';
 import { useToast } from '../context/ToastContext';
 import type { Project } from '../types/api';
-import type { TaskItem } from '../types/api';
+import type { TaskItem, TaskPriority, TaskStatus } from '../types/api';
 
 const FORBIDDEN_TASKS = 'Creating and editing tasks is available only to Managers and Admins.';
 
-const COLUMNS = ['ToDo', 'InProgress', 'Done'] as const;
-const PRIORITIES = ['Low', 'Medium', 'High'] as const;
+const COLUMNS: TaskStatus[] = ['ToDo', 'InProgress', 'Done'];
+const PRIORITIES: TaskPriority[] = ['Low', 'Medium', 'High'];
+
+// Значения enum на бэкенде:
+// TaskStatus: ToDo = 0, InProgress = 1, Done = 2
+// TaskPriority: Low = 0, Medium = 1, High = 2
+const STATUS_TO_ENUM: Record<TaskStatus, number> = {
+  ToDo: 0,
+  InProgress: 1,
+  Done: 2,
+};
+
+const PRIORITY_TO_ENUM: Record<TaskPriority, number> = {
+  Low: 0,
+  Medium: 1,
+  High: 2,
+};
+
+function statusForApi(status: TaskStatus) {
+  return STATUS_TO_ENUM[status];
+}
+
+function priorityForApi(priority: TaskPriority) {
+  return PRIORITY_TO_ENUM[priority];
+}
 
 function columnLabel(col: string) {
   if (col === 'ToDo') return 'To do';
@@ -106,8 +129,8 @@ export default function ProjectBoardPage() {
   const [showCreate, setShowCreate] = useState(false);
   const [editTitle, setEditTitle] = useState('');
   const [editDesc, setEditDesc] = useState('');
-  const [editStatus, setEditStatus] = useState('');
-  const [editPriority, setEditPriority] = useState('');
+  const [editStatus, setEditStatus] = useState<TaskStatus | ''>('');
+  const [editPriority, setEditPriority] = useState<TaskPriority | ''>('');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const { toastError, toastSuccess } = useToast();
@@ -140,8 +163,8 @@ export default function ProjectBoardPage() {
     if (!over || over.id === active.id) return;
     const task = active.data.current?.task as TaskItem | undefined;
     if (!task) return;
-    const newStatus = String(over.id);
-    if (!COLUMNS.includes(newStatus as (typeof COLUMNS)[number]) || newStatus === task.status) return;
+    const newStatus = String(over.id) as TaskStatus;
+    if (!COLUMNS.includes(newStatus) || newStatus === task.status) return;
 
     const prevTasks = [...tasks];
     setTasks((prev) =>
@@ -151,8 +174,9 @@ export default function ProjectBoardPage() {
     const res = await updateTask(task.id, {
       title: task.title,
       description: task.description ?? undefined,
-      status: newStatus,
-      priority: task.priority,
+      // отправляем в API числовые enum-значения (0/1/2)
+      status: statusForApi(newStatus) as unknown as string,
+      priority: priorityForApi(task.priority) as unknown as string,
     });
     if (!res.success) {
       setTasks(prevTasks);
@@ -181,11 +205,14 @@ export default function ProjectBoardPage() {
     if (!modalTask) return;
     setError('');
     setSaving(true);
+    const status = (editStatus || modalTask.status) as TaskStatus;
+    const priority = (editPriority || modalTask.priority) as TaskPriority;
+
     const res = await updateTask(modalTask.id, {
       title: editTitle.trim(),
       description: editDesc || undefined,
-      status: editStatus,
-      priority: editPriority,
+      status: statusForApi(status) as unknown as string,
+      priority: priorityForApi(priority) as unknown as string,
     });
     setSaving(false);
     if (res.success) {
@@ -218,7 +245,13 @@ export default function ProjectBoardPage() {
     if (!id) return;
     setError('');
     setSaving(true);
-    const res = await createTask(id, editTitle.trim(), editDesc || undefined, editPriority);
+    const priority = (editPriority || 'Medium') as TaskPriority;
+    const res = await createTask(
+      id,
+      editTitle.trim(),
+      editDesc || undefined,
+      priorityForApi(priority) as unknown as string
+    );
     setSaving(false);
     if (res.success && res.data) {
       load();
@@ -234,7 +267,8 @@ export default function ProjectBoardPage() {
     }
   };
 
-  const tasksByStatus = (status: string) => tasks.filter((t) => t.status === status);
+  const tasksList = Array.isArray(tasks) ? tasks : [];
+  const tasksByStatus = (status: string) => tasksList.filter((t) => t.status === status);
 
   if (loading && !project) {
     return <p className="text-[#5e6c84]">Loading…</p>;
@@ -328,7 +362,7 @@ export default function ProjectBoardPage() {
                 <select
                   className="w-full px-3 py-2 border border-[#ebecf0] rounded bg-white text-[#172b4d] focus:outline-none focus:border-[#0052cc] focus:ring-2 focus:ring-[#deebff]"
                   value={editStatus}
-                  onChange={(e) => setEditStatus(e.target.value)}
+                  onChange={(e) => setEditStatus(e.target.value as TaskStatus)}
                 >
                   {COLUMNS.map((s) => (
                     <option key={s} value={s}>{s}</option>
@@ -340,7 +374,7 @@ export default function ProjectBoardPage() {
                 <select
                   className="w-full px-3 py-2 border border-[#ebecf0] rounded bg-white text-[#172b4d] focus:outline-none focus:border-[#0052cc] focus:ring-2 focus:ring-[#deebff]"
                   value={editPriority}
-                  onChange={(e) => setEditPriority(e.target.value)}
+                  onChange={(e) => setEditPriority(e.target.value as TaskPriority)}
                 >
                   {PRIORITIES.map((p) => (
                     <option key={p} value={p}>{p}</option>
@@ -399,7 +433,7 @@ export default function ProjectBoardPage() {
                 <select
                   className="w-full px-3 py-2 border border-[#ebecf0] rounded bg-white text-[#172b4d] focus:outline-none focus:border-[#0052cc] focus:ring-2 focus:ring-[#deebff]"
                   value={editPriority}
-                  onChange={(e) => setEditPriority(e.target.value)}
+                  onChange={(e) => setEditPriority(e.target.value as TaskPriority)}
                 >
                   {PRIORITIES.map((p) => (
                     <option key={p} value={p}>{p}</option>
