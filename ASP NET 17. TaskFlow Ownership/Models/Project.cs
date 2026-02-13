@@ -1,6 +1,4 @@
-﻿using System.Text.Json.Serialization;
-
-namespace ASP_NET_17._TaskFlow_Ownership.Models;
+﻿namespace ASP_NET_17._TaskFlow_Ownership.Models;
 
 public class Project
 {

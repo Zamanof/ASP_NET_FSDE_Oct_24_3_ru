@@ -1,3 +1,4 @@
+using ASP_NET_17._TaskFlow_Ownership.Authorization;
 using ASP_NET_17._TaskFlow_Ownership.Data;
 using ASP_NET_17._TaskFlow_Ownership.Mappings;
 using ASP_NET_17._TaskFlow_Ownership.Middlewares;
@@ -7,6 +8,7 @@ using ASP_NET_17._TaskFlow_Ownership.Services.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -129,11 +131,42 @@ builder.Services
 builder.Services.AddAuthorization(
     options =>
     {
-        options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
-        options.AddPolicy("AdminOrManager", policy => policy.RequireRole("Admin", "Manager"));
-        options.AddPolicy("UserOrAbove", policy => policy.RequireRole("Admin", "Manager", "User"));
+        options.AddPolicy(
+            "AdminOnly", 
+            policy => 
+                policy.RequireRole("Admin"));
+
+        options.AddPolicy(
+            "AdminOrManager", 
+            policy => 
+                policy.RequireRole("Admin", "Manager"));
+        
+        options.AddPolicy(
+            "UserOrAbove", 
+            policy => 
+                policy.RequireRole("Admin", "Manager", "User"));
+
+        options.AddPolicy(
+            "ProjectOwnerOrAdmin",
+            policy =>
+                policy.Requirements.Add(new ProjectOwnerOrAdminRequirement()));
+
+        options.AddPolicy(
+            "ProjectMemberOrHigher",
+            policy =>
+                policy.Requirements.Add(new ProjectMemberOrHigherRequirment()));
+
+        options.AddPolicy(
+            "TaskStatusChange",
+            policy =>
+                policy.Requirements.Add(new TaskStatusChangeRequirement()));
     }
     );
+
+
+builder.Services.AddScoped<IAuthorizationHandler, ProjectOwnerOrAdminHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, ProjectMemberOrHigherHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, TaskStatusChangeHandler>();
 
 builder.Services.AddCors(
     options =>

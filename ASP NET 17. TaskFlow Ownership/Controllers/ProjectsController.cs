@@ -8,7 +8,8 @@ namespace ASP_NET_17._TaskFlow_Ownership.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-//[Authorize]
+
+[Authorize(Policy = "UserOrAbove")]
 public class ProjectsController : ControllerBase
 {
     private readonly IProjectService _projectService;
@@ -25,7 +26,7 @@ public class ProjectsController : ControllerBase
     //[Tags("GetAll")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     //[Authorize(Roles = "Admin, Manager, User")]
-    [Authorize(Policy ="UserOrAbove")]
+    
     public async Task<ActionResult<ApiResponse<IEnumerable<ProjectResponseDto>>>> GetAll()
     {
         //throw new NullReferenceException();
