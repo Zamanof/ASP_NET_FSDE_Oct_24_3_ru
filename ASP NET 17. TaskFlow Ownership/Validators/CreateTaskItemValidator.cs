@@ -17,7 +17,6 @@ public class CreateTaskItemValidator : AbstractValidator<TaskItemCreateRequest>
             .GreaterThan(0).WithMessage("ProjectId must be greater than 0");
 
         RuleFor(x => x.Priority)
-            .NotEmpty().WithMessage("Priority is required")
             .Must(p => new[] { TaskPriority.Low, TaskPriority.Medium, TaskPriority.High }.Contains(p))
             .WithMessage("Priority must be one of: 0(Low), 1(Medium), 2(High)");
     }

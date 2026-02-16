@@ -174,9 +174,20 @@ public class TaskItemService : ITaskItemService
         return _mapper.Map<TaskItemResponseDto>(task);
     }
 
-    public Task<TaskItemResponseDto?> UpdateStatusAsync(int id, TaskItemUpdateStatusRequest updateStatusRequest)
+    public async Task<TaskItemResponseDto?> UpdateStatusAsync(int id, TaskItemUpdateStatusRequest updateStatusRequest)
     {
-        throw new NotImplementedException();
+       var task = _context
+                            .TaskItems
+                            .Include(t => t.Project)
+                            .FirstOrDefault(t => t.Id == id);
+        if (task is null) 
+            return null;
+
+        task.Status = updateStatusRequest.Status;
+        task.UpdatedAt = DateTimeOffset.UtcNow;
+
+        await _context.SaveChangesAsync();
+        return _mapper.Map<TaskItemResponseDto>(task);
     }
 
     private IQueryable<TaskItem> ApplySorting(
