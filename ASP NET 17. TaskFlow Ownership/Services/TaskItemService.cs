@@ -150,6 +150,15 @@ public class TaskItemService : ITaskItemService
             );       
 
     }
+
+    public async Task<TaskItem?> GetTaskEntityAsync(int id)
+    {
+        return await _context
+                            .TaskItems
+                            .Include(t=> t.Project)
+                            .FirstOrDefaultAsync(t=> t.Id == id);
+    }
+
     public async Task<TaskItemResponseDto?> UpdateAsync(int id, TaskItemUpdateRequest updateRequest)
     {
         var task = await _context
@@ -163,6 +172,11 @@ public class TaskItemService : ITaskItemService
         await _context.SaveChangesAsync();
 
         return _mapper.Map<TaskItemResponseDto>(task);
+    }
+
+    public Task<TaskItemResponseDto?> UpdateStatusAsync(int id, TaskItemUpdateStatusRequest updateStatusRequest)
+    {
+        throw new NotImplementedException();
     }
 
     private IQueryable<TaskItem> ApplySorting(

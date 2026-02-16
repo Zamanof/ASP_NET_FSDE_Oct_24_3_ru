@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -65,7 +64,7 @@ public class AuthService : IAuthService
             UpdatedAt = null
         };
 
-        //await _userManager.AddToRoleAsync(user, "U")
+        await _userManager.AddToRoleAsync(user, "User");
 
         var result = await _userManager.CreateAsync(user, registerRequest.Password);
 

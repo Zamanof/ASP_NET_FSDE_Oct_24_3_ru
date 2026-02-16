@@ -7,7 +7,7 @@ using System.Security.Claims;
 namespace ASP_NET_17._TaskFlow_Ownership.Authorization;
 
 public class ProjectMemberOrHigherHandler
-    : AuthorizationHandler<ProjectOwnerOrAdminRequirement, Project>
+    : AuthorizationHandler<ProjectMemberOrHigherRequirment, Project>
 {
     private readonly TaskFlowDbContext _context;
 
@@ -17,8 +17,8 @@ public class ProjectMemberOrHigherHandler
     }
 
     protected async override Task HandleRequirementAsync(
-        AuthorizationHandlerContext context, 
-        ProjectOwnerOrAdminRequirement requirement, 
+        AuthorizationHandlerContext context,
+        ProjectMemberOrHigherRequirment requirement, 
         Project resource)
     {
         var userId = context.User.FindFirstValue(ClaimTypes.NameIdentifier);

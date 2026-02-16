@@ -210,6 +210,7 @@ if (app.Environment.IsDevelopment())
             options.DisplayRequestDuration();
             options.EnableFilter();
             options.EnableTryItOutByDefault();
+            options.EnablePersistAuthorization();
         }
         );
     app.MapOpenApi();
