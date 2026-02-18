@@ -1,0 +1,6 @@
+@ASP_NET_20._TaskFlow_Refactored_HostAddress = http://localhost:5005
+
+GET {{ASP_NET_20._TaskFlow_Refactored_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
