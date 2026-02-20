@@ -1,5 +1,4 @@
 ﻿namespace ASP_NET_20._TaskFlow_Files.Storage;
-
 public interface IFileStorage
 {
     Task<StoredFileInfo> UploadAsync(
@@ -12,7 +11,6 @@ public interface IFileStorage
 
     Task<Stream> OpenReadAsync(
         string storageKey,
-        string orginalFileName,
         CancellationToken cancellationToken = default);
 
     Task DeleteAsync(

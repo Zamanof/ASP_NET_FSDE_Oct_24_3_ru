@@ -1,0 +1,1 @@
+Invoicer layihəsində Program.cs hissəsini refactoring edin

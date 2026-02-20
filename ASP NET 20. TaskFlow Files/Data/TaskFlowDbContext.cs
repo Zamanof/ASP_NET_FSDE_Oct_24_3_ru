@@ -13,8 +13,8 @@ public class TaskFlowDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<Project> Projects => Set<Project>();
     public DbSet<TaskItem> TaskItems => Set<TaskItem>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
-    public DbSet<ProjectMember> ProjectMembers => Set<ProjectMember>();
     public DbSet<TaskAttachment> Attachments => Set<TaskAttachment>();
+    public DbSet<ProjectMember> ProjectMembers => Set<ProjectMember>();
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

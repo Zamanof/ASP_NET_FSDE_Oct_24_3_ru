@@ -4,6 +4,7 @@ using ASP_NET_20._TaskFlow_Files.Data;
 using ASP_NET_20._TaskFlow_Files.Mappings;
 using ASP_NET_20._TaskFlow_Files.Models;
 using ASP_NET_20._TaskFlow_Files.Services;
+using ASP_NET_20._TaskFlow_Files.Storage;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -239,6 +240,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<ITaskItemService, TaskItemService>();
         services.AddScoped<IProjectService, ProjectService>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IFileStorage, LocalDiskStorage>();
+        services.AddScoped<IAttachmentService, AttachmentService>();
+
         return services;
     }
 }
