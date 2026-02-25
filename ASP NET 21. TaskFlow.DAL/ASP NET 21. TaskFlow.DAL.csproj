@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>ASP_NET_21._TaskFlow.DAL</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ASP NET 21. TaskFlow.Data\ASP NET 21. TaskFlow.Data.csproj" />
+    <ProjectReference Include="..\ASP NET 21. TaskFlow.Models\ASP NET 21. TaskFlow.Models.csproj" />
+  </ItemGroup>
+
+</Project>

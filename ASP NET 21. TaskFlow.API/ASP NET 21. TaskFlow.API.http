@@ -1,0 +1,6 @@
+@ASP_NET_21._TaskFlow.API_HostAddress = http://localhost:5002
+
+GET {{ASP_NET_21._TaskFlow.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
