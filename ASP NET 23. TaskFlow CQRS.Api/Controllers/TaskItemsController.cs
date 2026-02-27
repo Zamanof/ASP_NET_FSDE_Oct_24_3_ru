@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ASP_NET_23._TaskFlow_CQRS.Application.Common;
 using ASP_NET_23._TaskFlow_CQRS.Application.DTOs;
 using ASP_NET_23._TaskFlow_CQRS.Application.Services;
+using MediatR;
+using ASP_NET_23._TaskFlow_CQRS.Application.Features.Tasks;
 
 namespace ASP_NET_23._TaskFlow_CQRS.Api.Controllers;
 
@@ -14,12 +16,14 @@ public class TaskItemsController : ControllerBase
     private readonly ITaskItemService _taskItemService;
     private readonly IProjectService _projectService;
     private readonly IAuthorizationService _authorizationService;
+    private readonly IMediator _mediator;
 
-    public TaskItemsController(ITaskItemService taskItemService, IProjectService projectService, IAuthorizationService authorizationService)
+    public TaskItemsController(ITaskItemService taskItemService, IProjectService projectService, IAuthorizationService authorizationService, IMediator mediator)
     {
         _taskItemService = taskItemService;
         _projectService = projectService;
         _authorizationService = authorizationService;
+        _mediator = mediator;
     }
 
     [HttpPost]
@@ -61,7 +65,7 @@ public class TaskItemsController : ControllerBase
         if (project == null) return NotFound();
         var authResult = await _authorizationService.AuthorizeAsync(User, project, "ProjectMemberOrHigher");
         if (!authResult.Succeeded) return Forbid();
-        var taskItem = await _taskItemService.GetByIdAsync(id);
+        var taskItem = await _mediator.Send(new GetTaskByIdQuery(id));
         if (taskItem is null) return NotFound(new ApiResponse<TaskItemResponseDto> { Success = false, Message = $"TaskItem with ID {id} not found", Data = default });
         return Ok(ApiResponse<TaskItemResponseDto>.SuccessResponse(taskItem));
     }

@@ -35,7 +35,7 @@ public class ProjectsController : ControllerBase
     {
         var ownerId = UserId ?? throw new InvalidOperationException("User ID not found in claims");
         if (!ModelState.IsValid) return BadRequest(ModelState);
-        var createdProject = await _mediator.Send(new CreateProjectCommand(createProjectDto, ));
+        var createdProject = await _mediator.Send(new CreateProjectCommand(createProjectDto, ownerId));
         return CreatedAtAction(nameof(GetById), new { id = createdProject.Id },
             ApiResponse<ProjectResponseDto>.SuccessResponse(createdProject, "Project created successfully"));
     }
