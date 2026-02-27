@@ -1,7 +1,7 @@
-using FluentValidation.AspNetCore;
 using ASP_NET_23._TaskFlow_CQRS.Api.Extensions;
 using ASP_NET_23._TaskFlow_CQRS.Application.Extensions;
 using ASP_NET_23._TaskFlow_CQRS.Infrastructure.Extensions;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

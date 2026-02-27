@@ -1,5 +1,6 @@
 using ASP_NET_23._TaskFlow_CQRS.Application.Common;
 using ASP_NET_23._TaskFlow_CQRS.Application.DTOs;
+using ASP_NET_23._TaskFlow_CQRS.Application.Features.Projects.Commands;
 using ASP_NET_23._TaskFlow_CQRS.Application.Features.Projects.Queries;
 using ASP_NET_23._TaskFlow_CQRS.Application.Services;
 using MediatR;
@@ -34,7 +35,7 @@ public class ProjectsController : ControllerBase
     {
         var ownerId = UserId ?? throw new InvalidOperationException("User ID not found in claims");
         if (!ModelState.IsValid) return BadRequest(ModelState);
-        var createdProject = await _projectService.CreateAsync(createProjectDto, ownerId);
+        var createdProject = await _mediator.Send(new CreateProjectCommand(createProjectDto, ));
         return CreatedAtAction(nameof(GetById), new { id = createdProject.Id },
             ApiResponse<ProjectResponseDto>.SuccessResponse(createdProject, "Project created successfully"));
     }
@@ -54,7 +55,7 @@ public class ProjectsController : ControllerBase
     public async Task<ActionResult<ApiResponse<IEnumerable<ProjectResponseDto>>>> GetAll()
     {
         var userId = UserId ?? throw new InvalidOperationException("User ID not found in claims");
-        var projects = await _projectService.GetAllForUserAsync(userId, UserRoles);
+        var projects = await _mediator.Send(new GetAllProjectsQuery(userId, UserRoles));
         return Ok(ApiResponse<IEnumerable<ProjectResponseDto>>.SuccessResponse(projects));
     }
 

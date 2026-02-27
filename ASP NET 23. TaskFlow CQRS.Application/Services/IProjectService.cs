@@ -5,10 +5,7 @@ namespace ASP_NET_23._TaskFlow_CQRS.Application.Services;
 
 public interface IProjectService
 {
-    Task<IEnumerable<ProjectResponseDto>> GetAllForUserAsync(string userId, IList<string> roles);
-    Task<ProjectResponseDto?> GetByIdAsync(int id);
     Task<Project?> GetProjectEntityAsync(int id);
-    Task<ProjectResponseDto> CreateAsync(CreateProjectDto createProjectDto, string ownerId);
     Task<ProjectResponseDto?> UpdateAsync(int id, UpdateProjectDto updateProjectDto);
     Task<bool> DeleteAsync(int id);
     Task<IEnumerable<ProjectMemberResponse>> GetMembersAsync(int projectId);

@@ -27,28 +27,8 @@ public class ProjectService : IProjectService
         _mapper = mapper;
     }
 
-    public async Task<IEnumerable<ProjectResponseDto>> GetAllForUserAsync(string userId, IList<string> roles)
-    {
-        var projects = await _projectRepository.GetAllForUserAsync(userId, roles);
-        return _mapper.Map<IEnumerable<ProjectResponseDto>>(projects);
-    }
-
     public async Task<Project?> GetProjectEntityAsync(int id) =>
-        await _projectRepository.GetByIdWithTasksAndMembersAsync(id);
-
-    public async Task<ProjectResponseDto?> GetByIdAsync(int id)
-    {
-        var project = await _projectRepository.GetByIdWithTasksAsync(id);
-        return project is null ? null : _mapper.Map<ProjectResponseDto>(project);
-    }
-
-    public async Task<ProjectResponseDto> CreateAsync(CreateProjectDto createProjectDto, string ownerId)
-    {
-        var project = _mapper.Map<Project>(createProjectDto);
-        project.OwnerId = ownerId;
-        await _projectRepository.AddAsync(project);
-        return _mapper.Map<ProjectResponseDto>(project);
-    }
+    await _projectRepository.GetByIdWithTasksAndMembersAsync(id);
 
     public async Task<ProjectResponseDto?> UpdateAsync(int id, UpdateProjectDto updateProjectDto)
     {

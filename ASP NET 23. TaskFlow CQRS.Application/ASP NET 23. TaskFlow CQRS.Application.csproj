@@ -19,8 +19,4 @@
     <ProjectReference Include="..\ASP NET 23. TaskFlow CQRS.Domain\ASP NET 23. TaskFlow CQRS.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Projects\Commands\" />
-  </ItemGroup>
-
 </Project>
