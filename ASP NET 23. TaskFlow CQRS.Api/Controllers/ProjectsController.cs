@@ -78,7 +78,7 @@ public class ProjectsController : ControllerBase
         if (existingProject is null) return NotFound($"Project with ID {id} not found");
         var authorizationResult = await _authorizationService.AuthorizeAsync(User, existingProject, "ProjectOwnerOrAdmin");
         if (!authorizationResult.Succeeded) return Forbid();
-        var isDeleted = await _projectService.DeleteAsync(id);
+        var isDeleted = await _mediator.Send(new DeleteProjectComand(id));
         if (!isDeleted) return NotFound($"Project with ID {id} not found");
         return NoContent();
     }
